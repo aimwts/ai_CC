@@ -40,23 +40,23 @@ Each device is also running a minimal NodeJS server alongside the EdgeOS Web Age
 
 A *Machine Monitor* device, or *MacMon* for short, is a single Raspberry Pi running both EDgeOS and Node. The device's role as a MacMon is to report the current state of a single Tsensor to which its attached. That Pi is connected to an Arduino via a serial connection which is read by a service in Node. That Arduino has one or more sensors attached to it and simply sends the values of each sensor over the serial connection as a JSON message. Those messages are picked up by the bridge, parsed and sent into EdgeOS. In this case the bridge is in Node but it can also be in Java or Python. Each sensor will automatically get its own Sensor Web Agent inside EdgeOS. That Sensor Web Agent will have Lanes which hold the latest sensor value, a history of that sensor value, Alert Lanes and Alert Threshold Lanes which manage triggering alerts based on each sensor value.
 
-An *Automated Robot*, or just Bot for short, is functionally just a raspberry Pi with a [SenseHat attachment](https://www.raspberrypi.org/products/sense-hat/). Bots sit idle within the TestCenter until an alert is triggered on one or more of of the TesterMon sensors. Alerts are automatically assigned by an Aggregator to the next idle Bot, and that Bot's task is cleared when the alert is cancelled. Like TesterMon, each Bot device runs both EdgeOS and Node. In this case the data is bridged into EdgeOS via Node which uses an third party JavaScript library to read the sensor values from the SensHat and pipe those values into EdgeOS. 
+An *Automated Robot*, or just Bot for short, is functionally just a raspberry Pi with a [SenseHat attachment](https://www.raspberrypi.org/products/sense-hat/). Bots sit idle within the TestCenter until an alert is triggered on one or more of of the MacMon sensors. Alerts are automatically assigned by an Aggregator to the next idle Bot, and that Bot's task is cleared when the alert is cancelled. Like MacMon, each Bot device runs both EdgeOS and Node. In this case the data is bridged into EdgeOS via Node which uses an third party JavaScript library to read the sensor values from the SensHat and pipe those values into EdgeOS. 
 
-The *Aggregator* device sits on the network and receives data from every tester and bot on the network. Like TesterMon and Bot, the Aggregator runs both EdgeOS and Node however unlike the other two devices there is not a data bridge running. The role of the Aggregator is to monitor everything configured to report to it and provide a UI which displays the status of all the connected devices. The Aggregator is also responsible for assigning 'tasks' to Bots when one or more TesterMon devices report an alert. When one more alerts are sent from a TesterMon on the network, the aggregator will selected an idle Bot on that same network and assign the alert to that bot. At that point, hypothetically the bot is acting on the alert. In practice the bot can only acknowledge the alert and wait for the sensor value to go back up outside of the threshold range. Acknowledgement is shown by the animated EdgeOS logo on the Bot's SenseHat screen turning from blue to red. Once an alert is cleared by either resolving the issue (such as turning on the fan) or by adjusting the alert threshold, the 'task' will be cleared from the Aggregator and the Bot will return to an available status turning the Swim logo back to blue.
+The *Aggregator* device sits on the network and receives data from every machine and bot on the network. Like MacMon and Bot, the Aggregator runs both EdgeOS and Node however unlike the other two devices there is not a data bridge running. The role of the Aggregator is to monitor everything configured to report to it and provide a UI which displays the status of all the connected devices. The Aggregator is also responsible for assigning 'tasks' to Bots when one or more MacMon devices report an alert. When one more alerts are sent from a MacMon on the network, the aggregator will selected an idle Bot on that same network and assign the alert to that bot. At that point, hypothetically the bot is acting on the alert. In practice the bot can only acknowledge the alert and wait for the sensor value to go back up outside of the threshold range. Acknowledgement is shown by the animated EdgeOS logo on the Bot's SenseHat screen turning from blue to red. Once an alert is cleared by either resolving the issue (such as turning on the fan) or by adjusting the alert threshold, the 'task' will be cleared from the Aggregator and the Bot will return to an available status turning the Swim logo back to blue.
 
-Every device on the network has a corresponding webpage which shows the current status of that particular device. As a user you are able to navigate between testers, bots, and the aggregator as if it were a single webapp despite each page being served from each device. The details of how each device acts and connects on the network is defined within the config files found in /config. This allows for every device to run identical software with only minor configuration changes defining how the device behaves.
+Every device on the network has a corresponding webpage which shows the current status of that particular device. As a user you are able to navigate between machiness, bots, and the aggregator as if it were a single webapp despite each page being served from each device. The details of how each device acts and connects on the network is defined within the config files found in /config. This allows for every device to run identical software with only minor configuration changes defining how the device behaves.
 
 ## Getting Started
 
 All the code required to deploy and run this application is located in this repository, including bash scripts to get things up and running. You will need to be running in a Unix like environment to be able to run this demo. We use both Debian and Ubuntu but you are not limited to just those distributions. For Windows you can setup an compatible environment: the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Prefer to run Ubuntu 18.04 LTS). NodeJS 9.11.1 or greater, Java 9 or greater, Git, and Gradle are all required in order to run the demo. Be sure those are setup before continuing.
 
 To get started:
-1. Clone the repo `git clone https://github.com/aimwts/ai_TC.git`
-2. CD into the new directory `cd ai_TC`
+1. Clone the repo `git clone https://github.com/aimwts/ai_CC.git`
+2. CD into the new directory `cd ai_CC`
 3. from the main project directory run:
    * `./bin/buildAll.sh config=raspi2`, this will build both Swim and install NodeJS dependencies
    * `./bin/startAll.sh config=raspi2`, this will start both Swim and NodeJS
-4. Navigate your browser to the address and port you configured your device to live at and verify that it serves out a page. If so you are setup!
+4. Navigate your browser to the address and port you configured your device to live at and verify that it serves out a page. If so you are setup! Example: localhost:8080
 
 ## Configuration
   Each device gets two configuration files which define how that device acts on the network of devices. One file defines what is needed for the EdgeOS Web Agent and the other holds what is needed for NodeJS. Within the /config folder these files live in /java/ and /node respectively. You can define which set of configuration files to use at startup using the 'config' command line parameter. See the Scripts section below for more information about how to use this parameter. It is important to follow the naming convention shown in the example files when creating configuration files for new devices. An overview of the options within both files is below.
@@ -83,10 +83,10 @@ To get started:
         * service - configuration for senseHat service
           * enabled - boolean to turn on/off the senseHat Service 
           * polling - used to define if polling should be used to handle serial data and what interval in milliseconds the polling interval will be
-     * plantConfig - configuration which defines the TesterMon
-        * bot - configuration for the TesterMon bot
+     * plantConfig - configuration which defines the MacMon
+        * bot - configuration for the MacMon bot
           * enabled - boolean to turn on/off the plant monitor
-        * service - configuration for TesterMon service
+        * service - configuration for MacMon service
           * enabled - boolean to turn on/off the senseHat Service 
           * arduinoAddress - address of the serial port the arduino is connected on.
           * baud - the baud rate at which to communicate over serial with arduino
