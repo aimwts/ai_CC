@@ -1,28 +1,30 @@
-# TAAS EdgeOS (TestCenterOS) Demo2 - Demo running in Lab on 8/11/20
-# updated 12/4/2020 
-## TCOS - Test Center Operating System Overview
+# ai_CC Control Center for production equipment using TAAS EdgeOS and EdgeNC
+# TAAS develops generic production control and monitor software using Edge ai and DNN  
+## ai_CC - Control Center Operating System Overview
 
-This is an advanced application demo for running a Test Center that demonstrates many of the key capabilities enabled by TAAS EdgeOS, such as: 
- * The ability to deploy and run on edge IOT devices, such as Raspberry Pi’s
- * The ability to distribute an application that shares consistency between nodes
- * The ability to aggregate data on a fabric at many levels
- * The ability to visualize data through a real-time UI
- * The ability to monitor sensros from each tester and predict tester function failure 
+This is an advanced application demo for running a Production Control Center that demonstrates many of the key capabilities enabled by TAAS EdgeOS (Edge Operating Software) and EdgeNC (Network Computing) , such as: 
+ * The ability to deploy and run on edge IOT devices embedded in production equipment, such as Raspberry Pi’s
+ * The ability to distribute an application that shares consistency between production nodes
+ * The ability to aggregate data on a fabric at many levels in the TAAS Cloud
+ * The ability to visualize data through a real-time UI on production equipment
+ * The ability to monitor sensros embedded in production equipment and predict function failure in real time
+ * The ability to predict PM schedule before machine failure
+ * The ability to provide trouble shooting procedure using ai Assistant
 
-This application is deployed in the TestCenter office for monitoring testers and serves as a demonstration of best practices. Therefore, the description of this application will be through a hypothetical TestCenter scenario even though the application could be applied to many use cases involving sensors, DUT testing real-time Data collection and/or a network of devices. 
+This application is deployed in the Control Center office for monitoring production machines and serves as a demonstration of best practices. Therefore, the description of this application will be through a hypothetical Control Center scenario even though the application could be applied to many use cases involving sensors, Machine Operation real-time Data collection and/or a network of machines. 
 
-aiTAAS Edge Project for TestCenter has two key technologies: EdgeOS and EdgeNC. 
-  * EdgeOS is a real-time Edge Data Classification & Analytics OS for IIOT sensors and DUT test data classification, reduction, analysis and prediction.  
+TAAS Edge Project for Control Center has two key technologies: EdgeOS and EdgeNC. 
+  * EdgeOS is a real-time Edge Data Classification & Analytics OS for IIOT sensors and Machine production data classification, reduction, analysis and prediction.  
   * EdgeNC is an AI/ML-enabled edge computing device with network data transfer capabilities, powered by CPU, GPU and FPGA that has Deep Neural Network (DNN) models; Inference with ML; Preprocess data; Transfer data over network to Cloud.
 
 Benefits: This Solution has the benefits:
-  * Faster: Process DUT Test Data locally: Transform in real-time; Combine all your data sources
+  * Faster: Process Machine Production Data locally: Transform in real-time; Combine all your data sources
   * Better: Reduce data loss
-  * Advanced: Bring advanced ML capabilities to Adaptive Testing
+  * Advanced: Bring advanced ML capabilities to production equipment
   * Flexible: Develop own models using latest ML technologies
   * Easier:  Simple configuration - Effortless onboarding; Scale to massive data volume
 
-Inside the TestCenter, there are a number of Raspberry Pi devices with various roles. These roles are: Tester Monitor, Automated Robot, and Data Aggregator. It’s important to note that all Raspberry Pi devices run the same software with minor configuration changes that define how they act and participate within the greenhouse network. This diagram provides a simple overview of the complete application and configurations.
+Inside the Control Center, there are a number of Raspberry Pi devices with various roles. These roles are: Machine Monitor, Automated Robot, and Data Aggregator. It’s important to note that all Raspberry Pi devices run the same software with minor configuration changes that define how they act and participate within the Control Center network. This diagram provides a simple overview of the complete application and configurations.
 
 ![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/Taas_logo_s.jpg "Demo Application Map")
 
@@ -35,7 +37,7 @@ Inside the TestCenter, there are a number of Raspberry Pi devices with various r
 
 Each device is also running a minimal NodeJS server alongside the EdgeOS Web Agents. Node is used to serve the various status pages used by the web app and as a data bridge from the sensors into EdgeOS. Unlike a traditional web application where all the pages are hosted in a central place, EdgeOS web applications can be hosted from each device. This ensures the UI is showing the real time data possible without the latency of being routed through various databases and/or cloud services.
 
-A *Tester Monitor* device, or *TesterMon* for short, is a single Raspberry Pi running both EDgeOS and Node. The device's role as a TesterMon is to report the current state of a single Tsensor to which its attached. That Pi is connected to an Arduino via a serial connection which is read by a service in Node. That Arduino has one or more sensors attached to it and simply sends the values of each sensor over the serial connection as a JSON message. Those messages are picked up by the bridge, parsed and sent into EdgeOS. In this case the bridge is in Node but it can also be in Java or Python. Each sensor will automatically get its own Sensor Web Agent inside EdgeOS. That Sensor Web Agent will have Lanes which hold the latest sensor value, a history of that sensor value, Alert Lanes and Alert Threshold Lanes which manage triggering alerts based on each sensor value.
+A *Machine Monitor* device, or *MacMon* for short, is a single Raspberry Pi running both EDgeOS and Node. The device's role as a MacMon is to report the current state of a single Tsensor to which its attached. That Pi is connected to an Arduino via a serial connection which is read by a service in Node. That Arduino has one or more sensors attached to it and simply sends the values of each sensor over the serial connection as a JSON message. Those messages are picked up by the bridge, parsed and sent into EdgeOS. In this case the bridge is in Node but it can also be in Java or Python. Each sensor will automatically get its own Sensor Web Agent inside EdgeOS. That Sensor Web Agent will have Lanes which hold the latest sensor value, a history of that sensor value, Alert Lanes and Alert Threshold Lanes which manage triggering alerts based on each sensor value.
 
 An *Automated Robot*, or just Bot for short, is functionally just a raspberry Pi with a [SenseHat attachment](https://www.raspberrypi.org/products/sense-hat/). Bots sit idle within the TestCenter until an alert is triggered on one or more of of the TesterMon sensors. Alerts are automatically assigned by an Aggregator to the next idle Bot, and that Bot's task is cleared when the alert is cancelled. Like TesterMon, each Bot device runs both EdgeOS and Node. In this case the data is bridged into EdgeOS via Node which uses an third party JavaScript library to read the sensor values from the SensHat and pipe those values into EdgeOS. 
 
