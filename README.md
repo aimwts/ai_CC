@@ -1,15 +1,16 @@
 # ai_CC Control Center for production equipment using TAAS EdgeOS and EdgeNC
 # TAAS develops generic production control and monitor software using Edge ai and DNN  
 ## ai_CC - Control Center Operating System Overview
+## DEMO for Smart Test Head (STH7500) Production Center for In-House ATE customer
 
-This is an advanced application demo for running a Production Control Center that demonstrates many of the key capabilities enabled by TAAS EdgeOS (Edge Operating Software) and EdgeNC (Network Computing) , such as: 
+This is an advanced application demo for running a Smart Test Head Production Control Center that demonstrates many of the key capabilities enabled by TAAS EdgeOS (Edge Operating Software) and EdgeNC (Network Computing) , such as: 
  * The ability to deploy and run on edge IOT devices embedded in production equipment, such as Raspberry Pi’s
  * The ability to distribute an application that shares consistency between production nodes
  * The ability to aggregate data on a fabric at many levels in the TAAS Cloud
  * The ability to visualize data through a real-time UI on production equipment
  * The ability to monitor sensros embedded in production equipment and predict function failure in real time
  * The ability to predict PM schedule before machine failure
- * The ability to provide trouble shooting procedure using ai Assistant
+ * The ability to provide trouble shooting procedure using ai Robat Assitant
 
 This application is deployed in the Control Center office for monitoring production machines and serves as a demonstration of best practices. Therefore, the description of this application will be through a hypothetical Control Center scenario even though the application could be applied to many use cases involving sensors, Machine Operation real-time Data collection and/or a network of machines. 
 
