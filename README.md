@@ -31,7 +31,7 @@ Inside the Control Center, there are a number of Raspberry Pi devices with vario
 
 ![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/Edge%20map.jpg "Demo Application Map")
 
-![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/STH%20STC1000.jpg "Demo Application Map")
+![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/STH%20STH7500.jpg "Demo Application Map")
 
 ![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/TC%20IP%20config.jpg "Demo Application Map")
 
