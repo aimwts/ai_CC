@@ -56,7 +56,7 @@ To get started:
 3. from the main project directory run:
    * `./bin/buildAll.sh config=raspi2`, this will build both Swim and install NodeJS dependencies
    * `./bin/startAll.sh config=raspi2`, this will start both Swim and NodeJS
-4. Navigate your browser to the address and port you configured your device to live at and verify that it serves out a page. If so you are setup! Example: localhost:8080
+4. Navigate your browser to the address and port you configured your device to live at and verify that it serves out a page. If so you are setup! Example: localhost:8080 (port 8080)
 
 ## Configuration
   Each device gets two configuration files which define how that device acts on the network of devices. One file defines what is needed for the EdgeOS Web Agent and the other holds what is needed for NodeJS. Within the /config folder these files live in /java/ and /node respectively. You can define which set of configuration files to use at startup using the 'config' command line parameter. See the Scripts section below for more information about how to use this parameter. It is important to follow the naming convention shown in the example files when creating configuration files for new devices. An overview of the options within both files is below.
