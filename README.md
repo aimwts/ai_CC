@@ -1,7 +1,9 @@
 # ai_CC Control Center for production equipment using TAAS EdgeOS and EdgeNC
-# TAAS develops generic production control and monitor software using Edge ai and DNN  
+# TAAS develops generic production control and monitoring software using Edge ai and DNN  
 ## ai_CC - Control Center Operating System Overview
 ## DEMO for Smart Test Head (STH7500) Production Center for In-House ATE customer
+
+![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/STH7500.jpg "Demo Application Map")
 
 This is an advanced application demo for running a Smart Test Head Production Control Center that demonstrates many of the key capabilities enabled by TAAS EdgeOS (Edge Operating Software) and EdgeNC (Network Computing) , such as: 
  * The ability to deploy and run on edge IOT devices embedded in production equipment, such as Raspberry Pi’s
@@ -10,7 +12,7 @@ This is an advanced application demo for running a Smart Test Head Production Co
  * The ability to visualize data through a real-time UI on production equipment
  * The ability to monitor sensros embedded in production equipment and predict function failure in real time
  * The ability to predict PM schedule before machine failure
- * The ability to provide trouble shooting procedure using ai Robat Assitant
+ * The ability to provide trouble shooting procedure using ai Robot Assitant
 
 This application is deployed in the Control Center office for monitoring production machines and serves as a demonstration of best practices. Therefore, the description of this application will be through a hypothetical Control Center scenario even though the application could be applied to many use cases involving sensors, Machine Operation real-time Data collection and/or a network of machines. 
 
@@ -24,6 +26,8 @@ Benefits: This Solution has the benefits:
   * Advanced: Bring advanced ML capabilities to production equipment
   * Flexible: Develop own models using latest ML technologies
   * Easier:  Simple configuration - Effortless onboarding; Scale to massive data volume
+  * Efficient: Deploy in the Control Center for monitoring production machines and improve machine utilization efficiency
+  * Cost saving: Avoid latency-prone database connection and expansive licensing
 
 Inside the Control Center, there are a number of Raspberry Pi devices with various roles. These roles are: Machine Monitor, Automated Robot, and Data Aggregator. It’s important to note that all Raspberry Pi devices run the same software with minor configuration changes that define how they act and participate within the Control Center network. This diagram provides a simple overview of the complete application and configurations.
 
@@ -32,7 +36,6 @@ Inside the Control Center, there are a number of Raspberry Pi devices with vario
 
 ![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/Edge%20map.jpg "Demo Application Map")
 
-![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/STH7500.jpg "Demo Application Map")
 
 ![Demo Application Map](https://raw.githubusercontent.com/aimwts/aiTAAS-Edge/master/TC%20IP%20config.jpg "Demo Application Map")
 
